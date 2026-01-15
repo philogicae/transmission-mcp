@@ -318,7 +318,6 @@ class TransmissionClient:
         download_dir: str | None = None,
         paused: bool = False,
         labels: list[str] | None = None,
-        sequential_download: bool = True,
         bandwidth_priority: int | None = None,
         cookies: str | None = None,
         files_unwanted: list[int] | None = None,
@@ -335,7 +334,6 @@ class TransmissionClient:
             download_dir: Directory to save files (optional)
             paused: Start paused if True
             labels: Optional list of labels (RPC 17+)
-            sequential_download: Download pieces sequentially (default True, requires RPC 18+)
             bandwidth_priority: Priority for this transfer (-1 to 1)
             cookies: HTTP cookie(s) for URL-based torrents
             files_unwanted: List of file IDs that shouldn't be downloaded
@@ -357,8 +355,6 @@ class TransmissionClient:
                     kwargs["paused"] = paused
                 if labels is not None:
                     kwargs["labels"] = labels
-                if sequential_download:
-                    kwargs["sequential_download"] = sequential_download
                 if bandwidth_priority is not None:
                     kwargs["bandwidth_priority"] = bandwidth_priority
                 if cookies is not None:

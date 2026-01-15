@@ -1640,7 +1640,7 @@ wheels = [
 
 [[package]]
 name = "transmission-mcp"
-version = "1.0.0"
+version = "1.0.1"
 source = { editable = "." }
 dependencies = [
     { name = "fastapi" },
@@ -1661,7 +1661,7 @@ requires-dist = [
     { name = "fastapi" },
     { name = "fastmcp" },
     { name = "python-dotenv" },
-    { name = "transmission-rpc", git = "https://github.com/trim21/transmission-rpc.git?rev=master" },
+    { name = "transmission-rpc", specifier = "==7.0.11" },
     { name = "uvicorn" },
 ]
 
@@ -1673,12 +1673,15 @@ dev = [
 
 [[package]]
 name = "transmission-rpc"
-version = "8.0.0a4"
-source = { git = "https://github.com/trim21/transmission-rpc.git?rev=master#6c8aded61da7508fa645bdccdd4f763dacc1eeb5" }
+version = "7.0.11"
+source = { registry = "https://pypi.org/simple" }
 dependencies = [
-    { name = "certifi" },
+    { name = "requests" },
     { name = "typing-extensions" },
-    { name = "urllib3" },
+]
+sdist = { url = "https://files.pythonhosted.org/packages/68/b8/dc4debf525c3bb8a676f4fd0ab8534845e3b067c78a81ad05ac39014d849/transmission_rpc-7.0.11.tar.gz", hash = "sha256:5872322e60b42e368bc9c4724773aea4593113cb19bd2da589f0ffcdabe57963", size = 113744, upload-time = "2024-08-20T22:41:07.485Z" }
+wheels = [
+    { url = "https://files.pythonhosted.org/packages/9f/4c/6319bcb1026e3f78c9cbcc9c24de77a76f09954e67ffc5ebfc29f7ce4b90/transmission_rpc-7.0.11-py3-none-any.whl", hash = "sha256:94fd008b54640dd9fff14d7ae26848f901e9d130a70950b8930f9b395988914f", size = 28231, upload-time = "2024-08-20T22:41:05.777Z" },
 ]
 
 [[package]]
