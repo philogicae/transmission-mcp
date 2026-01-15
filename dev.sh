@@ -1,0 +1,1 @@
+uv lock && uv sync -U --link-mode=copy && uv run ruff format transmission_client && uv run ruff check transmission_client --fix && uv run ty check transmission_client

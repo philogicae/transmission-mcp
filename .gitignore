@@ -1,0 +1,17 @@
+# IDE
+.vscode
+
+# Python
+*.pyc
+**/__pycache__
+*.pkl
+dist
+build
+
+# Ruff
+.ruff_cache
+
+# Envs
+.env
+.venv
+example.py

@@ -1,0 +1,40 @@
+[project]
+name = "transmission-mcp"
+version = "1.0.0"
+description = "Python wrapper & MCP server for the Transmission API"
+authors = [{ name = "philogicae" }]
+requires-python = ">=3.10,<4.0"
+readme = "README.md"
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "License :: OSI Approved :: MIT License",
+    "Operating System :: OS Independent",
+]
+dependencies = [
+    "python-dotenv",
+    "fastmcp",
+    "transmission-rpc @ git+https://github.com/trim21/transmission-rpc.git@master",
+    "fastapi",
+    "uvicorn",
+]
+
+[project.urls]
+Repository = "https://github.com/philogicae/transmission-mcp"
+Release = "https://github.com/philogicae/transmission-mcp/releases"
+DeepWiki = "https://deepwiki.com/philogicae/transmission-mcp"
+
+[project.scripts]
+transmission-mcp = "transmission_client.__main__:cli"
+
+[dependency-groups]
+dev = ["ruff", "ty"]
+
+[tool.hatch.metadata]
+allow-direct-references = true
+
+[tool.hatch.build]
+include = ["transmission_client"]
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
