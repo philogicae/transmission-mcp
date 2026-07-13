@@ -372,7 +372,7 @@ class TransmissionClient:
                 if priority_normal is not None:
                     kwargs["priority_normal"] = priority_normal
 
-                return client.add_torrent(t, **kwargs)
+                return client.add_torrent(t, **kwargs)  # ty: ignore[invalid-argument-type]
 
             if isinstance(torrent, (bytes, BinaryIO, Path)):
                 result = _do_add(torrent)

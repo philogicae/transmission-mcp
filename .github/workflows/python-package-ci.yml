@@ -1,6 +1,11 @@
 name: CI-CD
 
 on: push
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
 env:
   UV_SYSTEM_PYTHON: 1
 
@@ -9,24 +14,21 @@ jobs:
     name: Run ruff and ty 🧪
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
       - name: Install uv with cache
-        uses: astral-sh/setup-uv@v5
+        uses: astral-sh/setup-uv@v7
         with:
+          python-version: 3.14
           enable-cache: true
           cache-dependency-glob: uv.lock
-      - name: Set up Python
-        uses: actions/setup-python@v5
-        with:
-          python-version-file: pyproject.toml
       - name: Install dependencies
-        run: uv sync --locked --dev
-      - name: Run ruff format
-        run: uv run ruff format transmission_client
-      - name: Run ruff check
-        run: uv run ruff check transmission_client
+        run: uv sync --dev --frozen
+      - name: Run ruff format check
+        run: uv run ruff format --check
+      - name: Run ruff lint
+        run: uv run ruff check
       - name: Run ty check
-        run: uv run ty check transmission_client
+        run: uv run ty check
 
   build:
     name: Build distribution 📦
@@ -34,20 +36,17 @@ jobs:
     needs: test
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
         with:
           persist-credentials: false
       - name: Install uv with cache
-        uses: astral-sh/setup-uv@v5
+        uses: astral-sh/setup-uv@v7
         with:
+          python-version: 3.14
           enable-cache: true
           cache-dependency-glob: uv.lock
-      - name: Set up Python
-        uses: actions/setup-python@v5
-        with:
-          python-version-file: pyproject.toml
       - name: Install dependencies
-        run: uv sync --locked
+        run: uv sync --frozen
       - name: Build a binary wheel and a source tarball
         run: uv build
       - name: Store the distribution packages
@@ -81,7 +80,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
-        uses: actions/checkout@v4
+        uses: actions/checkout@v7
       - name: Extract Docker image metadata
         id: meta
         uses: docker/metadata-action@v5
